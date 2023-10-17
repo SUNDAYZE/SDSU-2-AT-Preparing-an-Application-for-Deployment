@@ -5,14 +5,18 @@ orbs:
 workflows:
   elastic-beanstalk-workflow:
     jobs:
+      - node/test:
+          app-dir: ~/project/backend
       - eb/deploy:
           app-dir: ~/project/backend
           context: aws-creds
           application-name: Application AT-Preparing-an-Application-for-Deployment
-          environment-name: AT-Preparing-an-Application-for--env
+          environment-name: Application AT-Preparing-an-Application-for-Deployment-env
           filters:
             branches:
               only:
                 - main
           label: version-<<pipeline.number>>
+          requires:
+            - node/test
         
